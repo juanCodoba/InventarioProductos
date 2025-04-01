@@ -54,7 +54,7 @@ fun HomeScreen() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("ProyectoPOLI") },
+                    title = { Text("Proyecto") },
                     navigationIcon = {
                         IconButton(onClick = {
                             scope.launch {

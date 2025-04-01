@@ -1,13 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.proyectopoli">
 
+    <!-- Permiso para conexión a Internet (añade esta línea) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProyectoPOLI">
+        android:theme="@style/Theme.ProyectoPOLI"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ProyectoPOLI</string>
+    <string name="personal_info_title">Información Personal</string>
+    <string name="full_name_label">Nombre completo</string>
+    <string name="email_label">Correo electrónico</string>
+    <string name="phone_label">Teléfono</string>
 </resources>

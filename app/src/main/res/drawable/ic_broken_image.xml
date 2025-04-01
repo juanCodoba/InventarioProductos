@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Marco roto -->
+    <path
+        android:strokeColor="#FF9E9E9E"
+        android:strokeWidth="1.5"
+        android:pathData="M5,5h14v14H5V5zm0,0l14,14"/>
+
+    <!-- Signo de exclamación -->
+    <path
+        android:fillColor="#FFEB3B"
+        android:pathData="M12,2L1,21h22L12,2zm0,3l6.09,11H5.91L12,5zm-1,4h2v5h-2v-5zm0,6h2v2h-2v-2z"/>
+</vector>
