@@ -16,6 +16,7 @@ data class UserPreferences(
 
 data class Purchase(
     val id: String,
+    val detProductUrl :String,
     val productName: String,
     val description: String,
     val date: String

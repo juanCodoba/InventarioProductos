@@ -2,6 +2,7 @@ package com.example.proyectopoli.screens.fragments.content
 
 import ProfileViewModel
 import UserProfile
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,37 +12,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-
-// Coil (Imágenes desde URL)
-import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import com.example.proyectopoli.components.PersonalInfoCard
-import com.example.proyectopoli.components.PreferencesCard
-import com.example.proyectopoli.components.ProfileHeader
-import com.example.proyectopoli.components.PurchaseHistorySection
+import com.example.proyectopoli.components.ProfileHeaderWithPreferences
 
-// ViewModel y Modelos
-
-
-// Componentes locales (ajusta la ruta según tu estructura)
-/*import com.example.proyectopoli.presentation.profile.components.ProfileHeader
-import com.example.proyectopoli.presentation.profile.components.PreferencesCard
-import com.example.proyectopoli.presentation.profile.components.PersonalInfoCard
-import com.example.proyectopoli.presentation.profile.components.PurchaseHistorySection
-*/
+// Colores personalizados
+val DarkGray = Color(0xFFE0E0E0)    // Fondo gris oscuro
+val DarkGreen = Color(0xFF2E7D32)   // Verde oscuro
+val LightText = Color(0xFFFFFFFF)   // Texto claro
 
 @Composable
 fun PerfilFragment(
     viewModel: ProfileViewModel = viewModel()
-
 ) {
     val profile by viewModel.profileState.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -49,61 +41,68 @@ fun PerfilFragment(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .background(DarkGray)
+            .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {
         when {
-            isLoading -> {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
-            profile != null -> {
-                ProfileContent(
-                    profile = profile!!,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                )
-            }
-            else -> {
-                Text(
-                    "Error al cargar el perfil",
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
+            isLoading -> CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center),
+                color = LightText
+            )
+            profile != null -> ProfileContent(profile = profile!!)
+            else -> Text(
+                "Error al cargar el perfil",
+                color = LightText,
+                modifier = Modifier.align(Alignment.Center))
         }
     }
 }
 
 @Composable
-private fun ProfileContent(profile: UserProfile, modifier: Modifier = Modifier) {
+private fun ProfileContent(profile: UserProfile) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        // Header con avatar
-        ProfileHeader(profile)
+        // Sección superior (Avatar + Preferencias)
+        ProfileHeaderWithPreferences(
+            profile = profile,
+            preferences = profile.preferences,
+            modifier = Modifier.padding(bottom = 8.dp),
+            containerColor = DarkGreen,
+            contentColor = LightText,
+            preferenceContainerColor = Color.White.copy(alpha = 0.2f)
+        )
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Sección de preferencias
-        PreferencesCard(preferences = profile.preferences)
-
-        Spacer(modifier = Modifier.height(16.dp))
+        CustomDivider()
 
         // Información personal
         PersonalInfoCard(
             fullName = profile.name,
             email = profile.email,
-            phone = profile.phone
+            phone = profile.phone,
+            modifier = Modifier.padding(vertical = 8.dp),
+
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        CustomDivider()
 
         // Historial de compras
-        PurchaseHistorySection(purchases = profile.purchaseHistory)
+        PurchaseHistorySection(
+            purchases = profile.purchaseHistory,
+            modifier = Modifier.padding(top = 8.dp),
+
+        )
     }
+}
+
+@Composable
+private fun CustomDivider() {
+    Divider(
+        modifier = Modifier.padding(vertical = 16.dp),
+        color = Color.LightGray.copy(alpha = 0.3f),
+        thickness = 1.dp
+    )
 }

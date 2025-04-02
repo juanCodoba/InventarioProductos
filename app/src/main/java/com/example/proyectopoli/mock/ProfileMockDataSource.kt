@@ -19,12 +19,15 @@ import UserProfile
                 purchaseHistory = listOf(
                     Purchase(
                         id = "purchase-1",
+                        detProductUrl = "https://example.com/avatar.jpg",
                         productName = "Apple Watch",
                         description = "Series 3, Nike",
-                        date = "01/03/2025"
+                        date = "01/03/2025",
+
                     ),
                     Purchase(
                         id = "purchase-2",
+                        detProductUrl = "https://example.com/avatar.jpg",
                         productName = "Samsung Galaxy",
                         description = "Watch 4 Classic",
                         date = "15/12/2024"
