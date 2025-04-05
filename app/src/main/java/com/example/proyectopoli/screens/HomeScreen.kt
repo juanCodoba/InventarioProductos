@@ -2,6 +2,7 @@ package com.example.proyectopoli.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerValue
@@ -24,6 +25,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import com.example.proyectopoli.R
 import com.example.proyectopoli.navigation.ContentNavigation
 import com.example.proyectopoli.screens.fragments.content.menu.MenuFragment
 import kotlinx.coroutines.launch
@@ -33,7 +37,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen() {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    var selectedOption by remember { mutableStateOf("perfil") }
+    var selectedOption by remember { mutableStateOf("fotos") }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -54,7 +58,7 @@ fun HomeScreen() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Proyecto") },
+                    title = { Text("") },
                     navigationIcon = {
                         IconButton(onClick = {
                             scope.launch {
@@ -71,9 +75,29 @@ fun HomeScreen() {
                             )
                         }
                     },
+                    actions = {
+                        if (selectedOption == "fotos") {
+                            IconButton(onClick = { /* aquí podremos la opción de buscar un reloj */ }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.search),
+                                    contentDescription = "Buscar",
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                            IconButton(onClick = { /* aquí la opción nos llevará al carrito de compras */ }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.cart),
+                                    contentDescription = "Carrito de compras",
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+                    },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        containerColor = MaterialTheme.colorScheme.background,
+                        titleContentColor = MaterialTheme.colorScheme.onBackground,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
+                        actionIconContentColor = MaterialTheme.colorScheme.onBackground
                     )
                 )
             }
