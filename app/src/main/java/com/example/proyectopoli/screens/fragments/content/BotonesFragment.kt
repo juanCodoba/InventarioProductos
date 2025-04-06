@@ -10,9 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
-fun BotonesFragment() {
+fun BotonesFragment(
+    navController: NavController
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()

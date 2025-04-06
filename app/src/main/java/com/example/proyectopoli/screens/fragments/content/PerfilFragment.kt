@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.proyectopoli.components.PersonalInfoCard
 import com.example.proyectopoli.components.ProfileHeaderWithPreferences
 
@@ -33,6 +34,7 @@ val LightText = Color(0xFFFFFFFF)   // Texto claro
 
 @Composable
 fun PerfilFragment(
+    navController: NavController,
     viewModel: ProfileViewModel = viewModel()
 ) {
     val profile by viewModel.profileState.collectAsState()
