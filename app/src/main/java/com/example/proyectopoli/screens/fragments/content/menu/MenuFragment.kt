@@ -24,9 +24,18 @@ fun MenuFragment(
 
         Divider()
 
-        AppScreens.entries.forEach { screen ->
+        // Lista de pantallas que deben aparecer en el menú
+        val menuScreens = listOf(
+            AppScreens.Perfil,
+            AppScreens.Fotos,
+            AppScreens.Videos,
+            AppScreens.Web,
+            AppScreens.Botones
+        )
+
+        menuScreens.forEach { screen ->
             NavigationDrawerItem(
-                label = { Text(screen.route.replaceFirstChar { it.uppercase() }) },
+                label = { Text(screen.title) }, // Usamos title en lugar de route
                 selected = currentScreen == screen,
                 onClick = { onOptionSelected(screen) },
                 modifier = Modifier.padding(horizontal = 12.dp)

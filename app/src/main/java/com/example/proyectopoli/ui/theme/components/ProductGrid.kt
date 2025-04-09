@@ -1,4 +1,4 @@
-package com.example.proyectopoli.components
+package com.example.proyectopoli.ui.theme.components
 
 import androidx.compose.foundation.layout.Arrangement
 

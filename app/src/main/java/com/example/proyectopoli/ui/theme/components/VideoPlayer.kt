@@ -1,4 +1,4 @@
-package com.example.proyectopoli.components
+package com.example.proyectopoli.ui.theme.components
 
 import android.net.Uri
 import androidx.compose.runtime.Composable

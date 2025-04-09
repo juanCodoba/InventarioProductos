@@ -45,6 +45,16 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            // Añade estas exclusiones específicas para Media3
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/LICENSE"
+            excludes += "META-INF/LICENSE.txt"
+            excludes += "META-INF/license.txt"
+            excludes += "META-INF/NOTICE"
+            excludes += "META-INF/NOTICE.txt"
+            excludes += "META-INF/notice.txt"
+            excludes += "META-INF/ASL2.0"
+            excludes += "META-INF/*.kotlin_module"
         }
     }
 }
@@ -62,14 +72,25 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.lifecycle.viewmodel.compose)
+
+    // Dependencias de Media3 (ExoPlayer)
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.ui)
-    implementation(libs.lifecycle.viewmodel.compose)
-    implementation(libs.lifecycle.runtime.compose)
-    implementation(libs.compose.foundation)
-    implementation(libs.compose.runtime)
-    // Para collectAsStateWithLifecycle (recomendado)
-    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.media3.session)
+
+    // Asegúrate de que todas las dependencias de Media3 usen la misma versión
+    constraints {
+        implementation(libs.media3.exoplayer) {
+            version { require("1.1.1") }
+        }
+        implementation(libs.media3.ui) {
+            version { require("1.1.1") }
+        }
+        implementation(libs.media3.session) {
+            version { require("1.1.1") }
+        }
+    }
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

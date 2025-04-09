@@ -5,15 +5,12 @@ import UserProfile
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,8 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.proyectopoli.components.PersonalInfoCard
-import com.example.proyectopoli.components.ProfileHeaderWithPreferences
+import com.example.proyectopoli.ui.theme.components.PersonalInfoCard
+import com.example.proyectopoli.ui.theme.components.ProfileHeaderWithPreferences
 
 // Colores personalizados
 val DarkGray = Color(0xFFE0E0E0)    // Fondo gris oscuro
