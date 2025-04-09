@@ -39,7 +39,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -51,9 +50,9 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
-import com.example.proyectopoli.features.cart.CartViewModel
 import com.example.proyectopoli.ui.theme.components.ProductGrid
-import kotlinx.coroutines.launch
+
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -166,105 +165,69 @@ private fun VideoPlayerSection(
 @Composable
 private fun ProductDetailInfo(
     product: Product,
-    modifier: Modifier = Modifier,
-    cartViewModel: CartViewModel = viewModel(), // Añadir ViewModel del carrito
-    onAddToCart: () -> Unit = {} // Callback opcional
+    modifier: Modifier = Modifier
 ) {
-    val scope = rememberCoroutineScope()
-    val snackbarHostState = remember { SnackbarHostState() }
-
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // Scaffold para manejar el Snackbar
-        Scaffold(
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-            content = { paddingValues ->
-                Column(
-                    modifier = Modifier.padding(paddingValues),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    // Información del producto
-                    Text(
-                        text = product.name,
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.Bold
-                    )
+        Text(
+            text = product.name,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
+        )
 
-                    Text(
-                        text = "$${"%,.0f".format(product.price)}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = Color(0xFF03624C)
-                    )
+        Text(
+            text = "$${"%,.0f".format(product.price)}",
+            style = MaterialTheme.typography.titleLarge,
+            color = Color(0xFF03624C)
+        )
 
-                    Text(
-                        text = product.description,
-                        style = MaterialTheme.typography.bodyLarge
-                    )
+        Text(
+            text = product.description,
+            style = MaterialTheme.typography.bodyLarge
+        )
 
-                    // Botones de acción
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        // Botón "Añadir a carrito"
-                        Button(
-                            onClick = {
-                                scope.launch {
-                                    cartViewModel.addToCart(product)
-                                    // Mostrar confirmación
-                                    snackbarHostState.showSnackbar(
-                                        message = "${product.name} añadido al carrito",
-                                        duration = SnackbarDuration.Short
-                                    )
-                                    onAddToCart() // Ejecutar callback si existe
-                                }
-                            },
-                            modifier = Modifier.weight(1f),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                        ) {
-                            Text("Añadir a carrito")
-                        }
+        // Botones de acción
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            // Botón "Añadir a carrito" (nuevo)
+            Button(
+                onClick = { /* Acción para añadir al carrito */ },
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            ) {
+                Text("Añadir a carrito")
+            }
 
-                        // Botón "Comprar ahora"
-                        Button(
-                            onClick = {
-                                scope.launch {
-                                    cartViewModel.addToCart(product)
-                                    // Aquí podrías navegar directamente al checkout
-                                    snackbarHostState.showSnackbar(
-                                        message = "Redirigiendo a pago...",
-                                        duration = SnackbarDuration.Short
-                                    )
-                                }
-                            },
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text("Comprar ahora")
-                        }
-                    }
+            // Botón "Comprar ahora" (existente)
+            Button(
+                onClick = { /* Acción de compra/reserva */ },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("Comprar ahora")
+            }
+        }
 
-                    // Opiniones de expertos
-                    if (product.expertReviews.isNotEmpty()) {
-                        Text(
-                            text = "Opiniones expertas:",
-                            style = MaterialTheme.typography.titleMedium,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
+        // Opiniones de expertos
+        if (product.expertReviews.isNotEmpty()) {
+            Text(
+                text = "Opiniones expertas:",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(top = 8.dp)
+            )
 
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            product.expertReviews.forEach { review ->
-                                ExpertReviewCard(review = review)
-                            }
-                        }
-                    }
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                product.expertReviews.forEach { review ->
+                    ExpertReviewCard(review = review)
                 }
             }
-        )
+        }
     }
 }
 
@@ -314,12 +277,38 @@ private fun RatingBar(
         }
     }
 }
-
+@Composable
+private fun ExpertReviewItem(review: ExpertReview) {
+    Column(modifier = Modifier.padding(vertical = 8.dp)) {
+        Text(text = review.expertName, fontWeight = FontWeight.Bold)
+        Text(text = review.expertRole, fontStyle = FontStyle.Italic)
+        Text(text = review.comment, modifier = Modifier.padding(top = 4.dp))
+    }
+}
 
 @Composable
 private fun FullScreenLoader() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun ErrorMessage(message: String, onRetry: (() -> Unit)? = null) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "Error: $message", color = MaterialTheme.colorScheme.error)
+        Spacer(modifier = Modifier.height(16.dp))
+        onRetry?.let {
+            Button(onClick = it) {
+                Text("Reintentar")
+            }
+        }
     }
 }
 
@@ -344,6 +333,26 @@ fun rememberExoPlayer(videoUrl: String): ExoPlayer {
             }
         }
     }
+}
+
+@androidx.annotation.OptIn(UnstableApi::class)
+@Composable
+fun VideoPlayer(
+    videoUrl: String,
+    modifier: Modifier = Modifier
+) {
+    val exoPlayer = rememberExoPlayer(videoUrl)
+
+    AndroidView(
+        factory = { context ->
+            PlayerView(context).apply {
+                player = exoPlayer
+                useController = true
+                setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS)
+            }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable
