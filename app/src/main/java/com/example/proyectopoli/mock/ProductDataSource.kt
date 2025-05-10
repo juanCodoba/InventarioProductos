@@ -66,20 +66,20 @@ internal object MockData {
             expertReviews = listOf(expertReview1, expertReview2),
             rating = 3.5,
             imageUrl = R.drawable.watch0_1,
-            videoUrl = "https://ejemplo.com/videos/moto-watch-70.mp4",
+            videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
             features = listOf("Resistente al agua", "Monitor de ritmo cardíaco"),
             isFeatured = true,
             stock = 15
         ),
         Product(
             id = "2",
-            name = "FITTRACK PRO X",
+            name = "Apple Watch SE 2023",
             price = 249990.0,
             description = "Reloj con GPS integrado y monitorización de frecuencia cardiaca.",
             expertReviews = listOf(expertReview3),
             rating = 4.2,
             imageUrl = R.drawable.watch4_1,
-            videoUrl = "https://ejemplo.com/videos/fittrack-pro-x.mp4",
+            videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
             features = listOf("GPS integrado", "Monitor de sueño", "Resistente al agua 50m"),
             isFeatured = true,
             stock = 8
@@ -92,7 +92,7 @@ internal object MockData {
             expertReviews = listOf(expertReview2),
             rating = 4.0,
             imageUrl = R.drawable.watch_samsung_galaxy4,
-            videoUrl = "https://ejemplo.com/videos/samsung-galaxy-watch4.mp4",
+            videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
             features = listOf("Wear OS", "Análisis de composición corporal"),
             isFeatured = false,
             stock = 12

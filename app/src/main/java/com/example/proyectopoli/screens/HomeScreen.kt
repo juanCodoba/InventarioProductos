@@ -119,7 +119,7 @@ fun HomeScreen() {
             ) {
                 NavHost(
                     navController = navController,
-                    startDestination = AppScreens.Perfil.route
+                    startDestination = AppScreens.Fotos.route
                 ) {
                     composable(AppScreens.Perfil.route) { PerfilFragment(navController) }
                     composable(AppScreens.Fotos.route) {
